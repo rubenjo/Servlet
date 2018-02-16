@@ -13,8 +13,8 @@ import es.salesianos.model.User;
 import es.salesianos.repository.UserRepository;
 
 @Component
-@Profile("zaragoza")
-public class AuthorService implements Service {
+@Profile("huesca")
+public class ErrorService implements Service {
 
 	@Autowired
 	private UserAssembler assembler;
@@ -22,22 +22,16 @@ public class AuthorService implements Service {
 	private UserRepository repository;
 
 	public void createNewUserFromRequest(HttpServletRequest req) {
-		User user = assembler.createUserFromRequest(req);
-
-		insertOrupdateUser(user);
+		throw new RuntimeException("he reventado");
 	}
 
 	public void insertOrupdateUser(User user) {
-		if (!repository.search(user).isPresent()) {
-			repository.insert(user);
-		} else {
-			repository.update(user);
-		}
+		throw new RuntimeException("he reventado");
 	}
 
 	@Override
 	public List<User> listAllUser() {
-		return repository.listAllUsers();
+		throw new RuntimeException("he reventado");
 	}
 
 	public UserAssembler getAssembler() {
@@ -58,13 +52,13 @@ public class AuthorService implements Service {
 
 	@Override
 	public void delete(Integer id) {
-		String defaultTableName = "user";
-		this.delete(defaultTableName, id);
+		throw new RuntimeException("he reventado");
 	}
 
 	@Override
 	public void delete(String tablename, Integer id) {
-		repository.delete(tablename, id);
+		throw new RuntimeException("he reventado");
+
 	}
 
 }

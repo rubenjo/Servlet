@@ -9,8 +9,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
-
 import es.salesianos.connection.AbstractConnection;
 import es.salesianos.model.Film;
 
@@ -35,8 +33,6 @@ public class FilmRepository {
 		}
 	};
 
-	@Autowired
-	private Film person;
 	private static final String jdbcUrl = "jdbc:h2:file:./src/main/resources/test;INIT=RUNSCRIPT FROM 'classpath:scripts/create.sql'";
 
 	public void insert(Film filmFormulario) {
@@ -62,6 +58,7 @@ public class FilmRepository {
 
 
 	public Optional<Film> search(Film film) {
+		Film person = null;
 		PreparedStatement preparedStatement = null;
 		ResultSet resultSet = null;
 		Connection conn = null;
@@ -73,6 +70,7 @@ public class FilmRepository {
 			resultSet = preparedStatement.executeQuery();
 
 			while (resultSet.next()) {
+				person = new Film();
 				person.setId(resultSet.getInt("id"));
 				person.setTittle(resultSet.getString("tittle"));
 			}
